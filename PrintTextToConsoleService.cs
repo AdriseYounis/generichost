@@ -10,13 +10,13 @@ namespace generichost
     internal class PrintTextToConsoleService : IHostedService, IDisposable
     {
         private readonly ILogger logger;
-        private readonly IOptions<AppSettings> appSettings;
+        private readonly IOptions<AppConfig> appConfig;
         private Timer timer;
 
-        public PrintTextToConsoleService(ILogger<PrintTextToConsoleService> logger, IOptions<AppSettings> appSettings)
+        public PrintTextToConsoleService(ILogger<PrintTextToConsoleService> logger, IOptions<AppConfig> appConfig)
         {
             this.logger = logger;
-            this.appSettings = appSettings;
+            this.appConfig = appConfig;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -44,7 +44,7 @@ namespace generichost
 
         private void DoWork(object state)
         {
-            logger.LogInformation($"Version {appSettings.Value.Version}. Background work with text: {appSettings.Value.TextToPrint}");
+            logger.LogInformation($"Background work with text: {appConfig.Value.TextToPrint}");
         }
     }
 }

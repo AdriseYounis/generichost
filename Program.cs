@@ -21,10 +21,10 @@ namespace generichost
                         config.AddCommandLine(args);
                     }
                 })
-                .ConfigureServices((hostingContext, services) =>
+                .ConfigureServices((hostContext, services) =>
                 {
                     services.AddOptions();
-                    services.Configure<AppSettings>(hostingContext.Configuration.GetSection("AppSettings"));
+                    services.Configure<AppConfig>(hostContext.Configuration.GetSection("AppConfig"));
                     services.AddSingleton<IHostedService, PrintTextToConsoleService>();
                 })
                 .ConfigureLogging((hostingContext, logging) => {
